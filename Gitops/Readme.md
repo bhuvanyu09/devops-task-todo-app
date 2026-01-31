@@ -2,7 +2,7 @@
 
 This directory represents the configuration repository in a GitOps architecture. In a real-world production environment, this folder would contain the Kubernetes manifests (YAMLs) or Helm charts that define the desired state of the cluster.
 
-## 🔄 The GitOps Workflow
+##  The GitOps Workflow
 
 We strictly follow the "Pull Model" for deployment to ensure security and auditability. The CI pipeline (Jenkins) never touches the Kubernetes cluster directly.
 
@@ -19,19 +19,3 @@ Rollbacks are instantaneous and handled entirely via Git, not by running complex
 2.  **Git Revert:** We execute `git revert HEAD` in this repository to restore the file state to `v122`.
 3.  **Auto-Healing:** ArgoCD detects that the Git state (`v122`) no longer matches the Cluster state (`v123`). It immediately forces the cluster back to `v122`, effectively performing the rollback.
 
-## 📂 Directory Structure (Simulation)
-
-If this were a live environment, the structure would be:
-
-```text
-gitops/
-├── base/                   # Common configurations
-│   ├── deployment.yaml
-│   └── service.yaml
-├── overlays/               # Environment-specific changes
-│   ├── dev/
-│   │   └── kustomization.yaml
-│   └── prod/
-│       └── kustomization.yaml
-└── applications/           # ArgoCD Application CRDs
-    └── todo-app.yaml
